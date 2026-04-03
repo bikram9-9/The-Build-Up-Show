@@ -8,7 +8,10 @@ export async function getLeads() {
     .from("leads")
     .select("*")
     .order("created_at", { ascending: false });
-  if (error) throw error;
+  if (error) {
+    console.error("getLeads error:", error.message);
+    return [] as Lead[];
+  }
   return data as Lead[];
 }
 
@@ -192,6 +195,9 @@ export async function getActivityLog(leadId?: string) {
   }
 
   const { data, error } = await query;
-  if (error) throw error;
+  if (error) {
+    console.error("getActivityLog error:", error.message);
+    return [];
+  }
   return data;
 }
